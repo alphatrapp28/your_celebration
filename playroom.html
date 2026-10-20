@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The Pink Playroom</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap");
+
+    :root {
+      --pink: #cf397b;
+      --deep-pink: #9e245c;
+      --blush: #ffe1ed;
+      --light: #fff3f8;
+      --paper: #fffdf8;
+      --ink: #603447;
+      --muted: #805b6c;
+      --border: #e9b3cb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Nunito", Arial, sans-serif;
+      line-height: 1.7;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(236, 160, 192, 0.15) 50%,
+          transparent 50%
+        ),
+        linear-gradient(
+          rgba(236, 160, 192, 0.15) 50%,
+          transparent 50%
+        ),
+        #fff2f7;
+      background-size: 32px 32px;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    input,
+    textarea {
+      accent-color: var(--pink);
+    }
+
+    a {
+      color: var(--deep-pink);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--deep-pink);
+      outline-offset: 4px;
+    }
+
+    .container {
+      width: min(1050px, 92%);
+      margin: auto;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 24px 0;
+    }
+
+    .topbar a {
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .topbar a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      padding: 25px 0 35px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--deep-pink);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    .handwritten {
+      font-family: "Caveat", cursive;
+    }
+
+    h1 {
+      margin: 0 0 15px;
+      color: var(--pink);
+      font-size: clamp(3.7rem, 10vw, 6rem);
+      line-height: 1;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      color: var(--deep-pink);
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      line-height: 1;
+    }
+
+    .hero p,
+    .description {
+      color: var(--muted);
+    }
+
+    .station-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .station-nav a,
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      border: 2px solid var(--deep-pink);
+      border-radius: 12px;
+      background: var(--pink);
+      color: white;
+      box-shadow: 3px 4px 0 #a72b60;
+      cursor: pointer;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .station-nav a:hover,
+    .button:hover {
+      transform: translateY(2px);
+      box-shadow: 2px 2px 0 #a72b60;
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--deep-pink);
+    }
+
+    .paper {
+      position: relative;
+      margin: 25px 0 45px;
+      padding: clamp(24px, 5vw, 45px);
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: 7px 8px 0 #efc4d6;
+      scroll-margin-top: 20px;
+    }
+
+    .paper::before {
+      position: absolute;
+      top: -12px;
+      left: calc(50% - 43px);
+      width: 86px;
+      height: 25px;
+      content: "";
+      transform: rotate(-4deg);
+      border: 1px dashed #cf8ba8;
+      background: rgba(241, 174, 205, 0.75);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+      margin-top: 25px;
+    }
+
+    fieldset {
+      min-width: 0;
+      margin: 0 0 20px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--light);
+    }
+
+    legend {
+      padding: 0 6px;
+      color: var(--deep-pink);
+      font-weight: 800;
+    }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+    }
+
+    .choices label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    /* PIXEL ART */
+
+    .pixel-station {
+      --pixel-ink: #e768a2;
+    }
+
+    .pixel-station:has(#ink-rose:checked) {
+      --pixel-ink: #d93b7e;
+    }
+
+    .pixel-station:has(#ink-lilac:checked) {
+      --pixel-ink: #a58ad6;
+    }
+
+    .pixel-station:has(#ink-peach:checked) {
+      --pixel-ink: #f19c89;
+    }
+
+    .pixel-frame {
+      width: min(100%, 360px);
+      margin: auto;
+      padding: 14px;
+      border: 3px solid var(--pink);
+      border-radius: 14px;
+      background: #ffe3ef;
+      box-shadow: 5px 5px 0 #e8b0c8;
+    }
+
+    .pixel-board {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 3px;
+    }
+
+    .pixel-board input {
+      appearance: none;
+      -webkit-appearance: none;
+      display: block;
+      width: 100%;
+      min-width: 0;
+      aspect-ratio: 1;
+      margin: 0;
+      border: 1px solid #e6bfd0;
+      border-radius: 3px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .pixel-board input:hover {
+      border-color: var(--deep-pink);
+    }
+
+    .pixel-board input:checked {
+      border-color: var(--pixel-ink);
+      background: var(--pixel-ink);
+    }
+
+    .pixel-caption {
+      margin: 14px 0 0;
+      color: var(--deep-pink);
+      font-family: "Caveat", cursive;
+      font-size: 1.7rem;
+      text-align: center;
+    }
+
+    /* DIY PLANNER */
+
+    .planner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .planner-field {
+      display: block;
+      font-weight: 800;
+    }
+
+    .planner-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .planner-field input,
+    .planner-field textarea {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff9fc;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .planner-field textarea {
+      min-height: 135px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+
+    .planner-field textarea.lined {
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          #f2dbe6 31px,
+          #f2dbe6 32px
+        );
+      background-color: #fff9fc;
+      line-height: 32px;
+    }
+
+    .planner-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 22px;
+      margin: 25px 0;
+    }
+
+    .planner-checks label {
+      cursor: pointer;
+    }
+
+    /* BOOKMARK DESIGNER */
+
+    .bookmark-station {
+      --bookmark-base: #ffe1ed;
+      --bookmark-pattern:
+        radial-gradient(#c56c97 1.5px, transparent 1.5px);
+    }
+
+    .bookmark-station:has(#base-lilac:checked) {
+      --bookmark-base: #eee4ff;
+    }
+
+    .bookmark-station:has(#base-cream:checked) {
+      --bookmark-base: #fff0cc;
+    }
+
+    .bookmark-station:has(#pattern-stripes:checked) {
+      --bookmark-pattern:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 8px,
+          rgba(168, 70, 119, 0.13) 8px,
+          rgba(168, 70, 119, 0.13) 12px
+        );
+    }
+
+    .bookmark-station:has(#pattern-plain:checked) {
+      --bookmark-pattern: none;
+    }
+
+    .bookmark-preview {
+      display: flex;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .bookmark {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 210px;
+      min-height: 430px;
+      padding: 30px 22px;
+      border: 3px solid var(--deep-pink);
+      border-radius: 16px 16px 8px 8px;
+      background-color: var(--bookmark-base);
+      background-image: var(--bookmark-pattern);
+      background-size: 16px 16px;
+      box-shadow: 7px 8px 0 #edc0d4;
+      text-align: center;
+    }
+
+    .bookmark-hole {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--deep-pink);
+      border-radius: 50%;
+      background: var(--paper);
+    }
+
+    .bookmark-text {
+      width: 100%;
+      min-height: 150px;
+      margin: 22px 0;
+      padding: 10px;
+      overflow-wrap: anywhere;
+      border: 1px dashed #bd7d9b;
+      border-radius: 7px;
+      color: var(--deep-pink);
+      font-family: "Caveat", cursive;
+      font-size: 2.2rem;
+      line-height: 1.2;
+    }
+
+    .bookmark-decoration {
+      font-size: 2.7rem;
+    }
+
+    .decoration-flower,
+    .decoration-stars {
+      display: none;
+    }
+
+    .bookmark-station:has(#decor-flower:checked) .decoration-bow,
+    .bookmark-station:has(#decor-stars:checked) .decoration-bow {
+      display: none;
+    }
+
+    .bookmark-station:has(#decor-flower:checked) .decoration-flower,
+    .bookmark-station:has(#decor-stars:checked) .decoration-stars {
+      display: inline;
+    }
+
+    .footer {
+      padding: 0 0 40px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .two-column,
+      .planner-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .planner-field.full {
+        grid-column: auto;
+      }
+
+      .topbar {
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Print a clean version of the creations. */
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .topbar,
+      .hero,
+      .controls,
+      .button,
+      .note,
+      .footer,
+      .paper::before {
+        display: none !important;
+      }
+
+      .container {
+        width: 100%;
+      }
+
+      .paper {
+        margin: 0 0 25px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .two-column {
+        display: block;
+      }
+
+      .bookmark,
+      .pixel-frame {
+        box-shadow: none;
+      }
+
+      .bookmark-text {
+        border: none;
+      }
+
+      .pixel-board input,
+      .bookmark {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      textarea {
+        resize: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="container topbar">
+    <a href="index.html">← Craft studio</a>
+    <a href="letter.html">Your birthday letter ♡</a>
+  </header>
+
+  <main class="container">
+
+    <header class="hero">
+      <p class="eyebrow">No rules. Just make something.</p>
+
+      <h1>The Pink Playroom</h1>
+
+      <p>
+        A tiny desk for pixel doodles, crafty plans,
+        and very cute bookmarks.
+      </p>
+
+      <nav class="station-nav" aria-label="Creative stations">
+        <a href="#pixels">♡ Pixel Patch</a>
+        <a href="#planner">✎ Project Planner</a>
+        <a href="#bookmarks">🎀 Bookmark Boutique</a>
+      </nav>
+
+      <p class="note">
+        Screenshot your favorites before leaving.
+        This page does not permanently save your work.
+      </p>
+    </header>
+
+    <!-- STATION 1: PIXEL ART -->
+
+    <form class="paper pixel-station" id="pixels">
+      <p class="eyebrow">Station 01</p>
+
+      <h2>Pixel Patch</h2>
+
+      <p class="description">
+        Tap a square to paint it. Tap again to erase it.
+        Make a heart, a flower, your initials, or a tiny mystery creature.
+      </p>
+
+      <div class="two-column">
+
+        <div>
+          <div class="pixel-frame">
+
+            <div class="pixel-board" role="group" aria-label="Eight by eight pixel drawing board">
+              <!-- Row 1 -->
+              <input type="checkbox" aria-label="Row 1 column 1">
+              <input type="checkbox" aria-label="Row 1 column 2">
+              <input type="checkbox" aria-label="Row 1 column 3">
+              <input type="checkbox" aria-label="Row 1 column 4">
+              <input type="checkbox" aria-label="Row 1 column 5">
+              <input type="checkbox" aria-label="Row 1 column 6">
+              <input type="checkbox" aria-label="Row 1 column 7">
+              <input type="checkbox" aria-label="Row 1 column 8">
+
+              <!-- Row 2 -->
+              <input type="checkbox" aria-label="Row 2 column 1">
+              <input type="checkbox" aria-label="Row 2 column 2">
+              <input type="checkbox" aria-label="Row 2 column 3">
+              <input type="checkbox" aria-label="Row 2 column 4">
+              <input type="checkbox" aria-label="Row 2 column 5">
+              <input type="checkbox" aria-label="Row 2 column 6">
+              <input type="checkbox" aria-label="Row 2 column 7">
+              <input type="checkbox" aria-label="Row 2 column 8">
+
+              <!-- Row 3 -->
+              <input type="checkbox" aria-label="Row 3 column 1">
+              <input type="checkbox" aria-label="Row 3 column 2">
+              <input type="checkbox" aria-label="Row 3 column 3">
+              <input type="checkbox" aria-label="Row 3 column 4">
+              <input type="checkbox" aria-label="Row 3 column 5">
+              <input type="checkbox" aria-label="Row 3 column 6">
+              <input type="checkbox" aria-label="Row 3 column 7">
+              <input type="checkbox" aria-label="Row 3 column 8">
+
+              <!-- Row 4 -->
+              <input type="checkbox" aria-label="Row 4 column 1">
+              <input type="checkbox" aria-label="Row 4 column 2">
+              <input type="checkbox" aria-label="Row 4 column 3">
+              <input type="checkbox" aria-label="Row 4 column 4">
+              <input type="checkbox" aria-label="Row 4 column 5">
+              <input type="checkbox" aria-label="Row 4 column 6">
+              <input type="checkbox" aria-label="Row 4 column 7">
+              <input type="checkbox" aria-label="Row 4 column 8">
+
+              <!-- Row 5 -->
+              <input type="checkbox" aria-label="Row 5 column 1">
+              <input type="checkbox" aria-label="Row 5 column 2">
+              <input type="checkbox" aria-label="Row 5 column 3">
+              <input type="checkbox" aria-label="Row 5 column 4">
+              <input type="checkbox" aria-label="Row 5 column 5">
+              <input type="checkbox" aria-label="Row 5 column 6">
+              <input type="checkbox" aria-label="Row 5 column 7">
+              <input type="checkbox" aria-label="Row 5 column 8">
+
+              <!-- Row 6 -->
+              <input type="checkbox" aria-label="Row 6 column 1">
+              <input type="checkbox" aria-label="Row 6 column 2">
+              <input type="checkbox" aria-label="Row 6 column 3">
+              <input type="checkbox" aria-label="Row 6 column 4">
+              <input type="checkbox" aria-label="Row 6 column 5">
+              <input type="checkbox" aria-label="Row 6 column 6">
+              <input type="checkbox" aria-label="Row 6 column 7">
+              <input type="checkbox" aria-label="Row 6 column 8">
+
+              <!-- Row 7 -->
+              <input type="checkbox" aria-label="Row 7 column 1">
+              <input type="checkbox" aria-label="Row 7 column 2">
+              <input type="checkbox" aria-label="Row 7 column 3">
+              <input type="checkbox" aria-label="Row 7 column 4">
+              <input type="checkbox" aria-label="Row 7 column 5">
+              <input type="checkbox" aria-label="Row 7 column 6">
+              <input type="checkbox" aria-label="Row 7 column 7">
+              <input type="checkbox" aria-label="Row 7 column 8">
+
+              <!-- Row 8 -->
+              <input type="checkbox" aria-label="Row 8 column 1">
+              <input type="checkbox" aria-label="Row 8 column 2">
+              <input type="checkbox" aria-label="Row 8 column 3">
+              <input type="checkbox" aria-label="Row 8 column 4">
+              <input type="checkbox" aria-label="Row 8 column 5">
+              <input type="checkbox" aria-label="Row 8 column 6">
+              <input type="checkbox" aria-label="Row 8 column 7">
+              <input type="checkbox" aria-label="Row 8 column 8">
+            </div>
+
+          </div>
+
+          <p class="pixel-caption">tiny squares, big creative energy ✦</p>
+        </div>
+
+        <div class="controls">
+          <fieldset>
+            <legend>Choose your ink</legend>
+
+            <div class="choices">
+              <label>
+                <input type="radio" name="ink" checked>
+                Pink
+              </label>
+
+              <label>
+                <input type="radio" name="ink" id="ink-rose">
+                Rose
+              </label>
+
+              <label>
+                <input type="radio" name="ink" id="ink-lilac">
+                Lilac
+              </label>
+
+              <label>
+                <input type="radio" name="ink" id="ink-peach">
+                Peach
+              </label>
+            </div>
+          </fieldset>
+
+          <p class="note">
+            Changing ink recolors every filled square.
+            This is a one-color-at-a-time pixel board.
+          </p>
+
+          <fieldset>
+            <legend>Mini creative challenges</legend>
+
+            <p>♡ Make a heart without looking up a pattern.</p>
+            <p>✿ Invent a tiny flower.</p>
+            <p>✦ Turn your first initial into pixel art.</p>
+            <p>☁ Make something that only you understand.</p>
+          </fieldset>
+
+          <button class="button secondary" type="reset">
+            Clear my pixel board ↺
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+    <!-- STATION 2: PROJECT PLANNER -->
+
+    <form class="paper" id="planner">
+      <p class="eyebrow">Station 02</p>
+
+      <h2>My next little project</h2>
+
+      <p class="description">
+        A place for the idea that deserves more than
+        “I will remember it later.”
+      </p>
+
+      <div class="planner-grid">
+
+        <label class="planner-field">
+          Project name
+          <input
+            type="text"
+            name="project-name"
+            placeholder="Something cute is loading..."
+          >
+        </label>
+
+        <label class="planner-field">
+          A possible craft date
+          <input type="date" name="craft-date">
+        </label>
+
+        <label class="planner-field full">
+          What am I making?
+          <textarea
+            name="project-idea"
+            class="lined"
+            placeholder="A handmade bookmark? A decorated journal? A tiny gift?"
+          ></textarea>
+        </label>
+
+        <label class="planner-field">
+          Supplies to gather
+          <textarea
+            name="supplies"
+            placeholder="Paper, markers, ribbon, glue..."
+          ></textarea>
+        </label>
+
+        <label class="planner-field">
+          My first three steps
+          <textarea
+            name="steps"
+            placeholder="1. Sketch the idea&#10;2. Gather supplies&#10;3. Put on a good playlist"
+          ></textarea>
+        </label>
+
+        <label class="planner-field full">
+          Messy ideas / color notes / anything else
+          <textarea
+            name="extra-notes"
+            class="lined"
+            placeholder="No need to make sense yet."
+          ></textarea>
+        </label>
+
+      </div>
+
+      <div class="planner-checks">
+        <label>
+          <input type="checkbox">
+          Supplies ready
+        </label>
+
+        <label>
+          <input type="checkbox">
+          Playlist picked
+        </label>
+
+        <label>
+          <input type="checkbox">
+          Snack secured
+        </label>
+
+        <label>
+          <input type="checkbox">
+          Ready to create
+        </label>
+      </div>
+
+      <button class="button secondary" type="reset">
+        Clear this planner ↺
+      </button>
+
+      <p class="note">
+        Copy your notes somewhere safe, screenshot them,
+        or use your browser’s Print option before leaving.
+        Very long notes may not all be visible when printed.
+      </p>
+    </form>
+
+    <!-- STATION 3: BOOKMARK DESIGNER -->
+
+    <form class="paper bookmark-station" id="bookmarks">
+      <p class="eyebrow">Station 03</p>
+
+      <h2>Bookmark Boutique</h2>
+
+      <p class="description">
+        Pick the paper, add a little decoration,
+        then click the words on the bookmark to write your own.
+      </p>
+
+      <div class="two-column">
+
+        <div class="controls">
+
+          <fieldset>
+            <legend>Paper color</legend>
+
+            <div class="choices">
+              <label>
+                <input type="radio" name="paper" checked>
+                Blush
+              </label>
+
+              <label>
+                <input type="radio" name="paper" id="base-lilac">
+                Lilac
+              </label>
+
+              <label>
+                <input type="radio" name="paper" id="base-cream">
+                Cream
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Pattern</legend>
+
+            <div class="choices">
+              <label>
+                <input type="radio" name="pattern" checked>
+                Dots
+              </label>
+
+              <label>
+                <input type="radio" name="pattern" id="pattern-stripes">
+                Stripes
+              </label>
+
+              <label>
+                <input type="radio" name="pattern" id="pattern-plain">
+                Plain
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Little decoration</legend>
+
+            <div class="choices">
+              <label>
+                <input type="radio" name="decoration" checked>
+                Bow
+              </label>
+
+              <label>
+                <input type="radio" name="decoration" id="decor-flower">
+                Flower
+              </label>
+
+              <label>
+                <input type="radio" name="decoration" id="decor-stars">
+                Sparkles
+              </label>
+            </div>
+          </fieldset>
+
+          <p class="note">
+            Click the bookmark’s text to edit it.
+            Try your name, a short quote, or “just one more chapter.”
+          </p>
+
+          <button class="button secondary" type="reset">
+            Reset colors and decorations ↺
+          </button>
+
+          <p class="note">
+            This resets the design choices, not your typed words.
+            Edit the text directly to change it again.
+          </p>
+
+        </div>
+
+        <div class="bookmark-preview">
+          <div class="bookmark">
+
+            <div class="bookmark-hole" aria-hidden="true"></div>
+
+            <div
+              class="bookmark-text"
+              contenteditable="plaintext-only"
+              role="textbox"
+              aria-label="Your bookmark text"
+              aria-multiline="true"
+              spellcheck="false"
+            >Just one more page… (you when reading a book) </div>
+
+            <div class="bookmark-decoration" aria-hidden="true">
+              <span class="decoration-bow">🎀</span>
+              <span class="decoration-flower">🌷</span>
+              <span class="decoration-stars">✨</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <p class="note">
+        Screenshot your finished bookmark, or print this page.
+        In print settings, enable background graphics if the
+        colors or pattern are missing.
+      </p>
+    </form>
+
+  </main>
+
+  <footer class="container footer">
+    End of the craft table. Beginning of approximately 47 new ideas. ✂
+  </footer>
+
+</body>
+</html>

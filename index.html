@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pink Paper Club | Birthday Edition</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap");
+
+    :root {
+      --pink: #d63c82;
+      --hot-pink: #b92568;
+      --blush: #ffe3ee;
+      --pale-pink: #fff4f8;
+      --paper: #fffdf8;
+      --ink: #63344c;
+      --muted: #855d71;
+      --border: #eeb4ce;
+      --yellow: #ffe49a;
+      --lavender: #d9c6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Nunito", Arial, sans-serif;
+      background-color: #fff0f6;
+      background-image:
+        linear-gradient(
+          90deg,
+          rgba(240, 149, 188, 0.13) 50%,
+          transparent 50%
+        ),
+        linear-gradient(
+          rgba(240, 149, 188, 0.13) 50%,
+          transparent 50%
+        );
+      background-size: 36px 36px;
+      line-height: 1.7;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--hot-pink);
+      outline-offset: 6px;
+    }
+
+    .container {
+      width: min(1000px, 92%);
+      margin-inline: auto;
+    }
+
+    /* Top navigation */
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 22px 0;
+    }
+
+    .brand {
+      color: var(--hot-pink);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Shared paper cards */
+
+    .paper {
+      position: relative;
+      margin: 28px 0;
+      padding: clamp(25px, 5vw, 55px);
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: 7px 9px 0 #efc1d5;
+    }
+
+    .taped::before {
+      position: absolute;
+      top: -14px;
+      left: calc(50% - 48px);
+      width: 96px;
+      height: 28px;
+      content: "";
+      transform: rotate(-4deg);
+      background: rgba(244, 173, 204, 0.75);
+      border: 1px dashed #cc78a0;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--hot-pink);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    .handwriting {
+      font-family: "Caveat", cursive;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: var(--pink);
+      font-size: clamp(3.5rem, 11vw, 6.5rem);
+      line-height: 0.95;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      color: var(--hot-pink);
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      line-height: 1.1;
+    }
+
+    .intro {
+      max-width: 610px;
+      margin: 20px auto;
+      color: var(--muted);
+    }
+
+    .hero {
+      padding-block: 65px 45px;
+      text-align: center;
+    }
+
+    .birthday-badge {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 7px 17px;
+      border: 1px dashed var(--pink);
+      border-radius: 999px;
+      background: var(--blush);
+      color: var(--hot-pink);
+      font-weight: 800;
+      transform: rotate(-3deg);
+    }
+
+    .doodles {
+      margin: 15px 0;
+      font-size: 2rem;
+      letter-spacing: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 21px;
+      border: 2px solid var(--hot-pink);
+      border-radius: 12px;
+      background: var(--pink);
+      color: white;
+      box-shadow: 3px 4px 0 #a5205b;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      transform: translateY(2px);
+      box-shadow: 2px 2px 0 #a5205b;
+    }
+
+    .section-note {
+      color: var(--muted);
+    }
+
+    /* Coloring studio */
+
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-top: 25px;
+    }
+
+    .drawing-sheet {
+      padding: 20px;
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      background: white;
+      text-align: center;
+    }
+
+    .drawing-sheet svg {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .drawing-caption {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-family: "Caveat", cursive;
+      font-size: 1.6rem;
+    }
+
+    fieldset {
+      min-width: 0;
+      margin: 0 0 17px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--pale-pink);
+    }
+
+    legend {
+      padding-inline: 6px;
+      color: var(--hot-pink);
+      font-weight: 800;
+    }
+
+    .color-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 14px;
+    }
+
+    .color-options label {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    input {
+      accent-color: var(--pink);
+    }
+
+    .color-options input {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* Each group changes only its own part of the drawing. */
+
+    .coloring-studio {
+      --frosting-color: #ffffff;
+      --wrapper-color: #ffffff;
+      --heart-color: #ffffff;
+    }
+
+    .coloring-studio:has(#frosting-pink:checked) {
+      --frosting-color: #ffadd0;
+    }
+
+    .coloring-studio:has(#frosting-lilac:checked) {
+      --frosting-color: #d9c6ff;
+    }
+
+    .coloring-studio:has(#frosting-peach:checked) {
+      --frosting-color: #ffd0b5;
+    }
+
+    .coloring-studio:has(#wrapper-rose:checked) {
+      --wrapper-color: #ed88b5;
+    }
+
+    .coloring-studio:has(#wrapper-yellow:checked) {
+      --wrapper-color: #ffe49a;
+    }
+
+    .coloring-studio:has(#wrapper-mint:checked) {
+      --wrapper-color: #bfe6d1;
+    }
+
+    .coloring-studio:has(#heart-cherry:checked) {
+      --heart-color: #f274a4;
+    }
+
+    .coloring-studio:has(#heart-lilac:checked) {
+      --heart-color: #c5a7f0;
+    }
+
+    .coloring-studio:has(#heart-pink:checked) {
+      --heart-color: #ffd1e5;
+    }
+
+    .frosting {
+      fill: var(--frosting-color);
+    }
+
+    .wrapper {
+      fill: var(--wrapper-color);
+    }
+
+    .cake-heart {
+      fill: var(--heart-color);
+    }
+
+    .frosting,
+    .wrapper,
+    .cake-heart {
+      transition: fill 0.2s ease;
+    }
+
+    .reset-button {
+      padding: 9px 16px;
+      border: 1px solid var(--pink);
+      border-radius: 9px;
+      background: white;
+      color: var(--hot-pink);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    /* Sticker activity */
+
+    .sticker-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 25px;
+      margin-top: 25px;
+      align-items: center;
+    }
+
+    .sticker-controls {
+      display: grid;
+      gap: 10px;
+    }
+
+    .sticker-choice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--pale-pink);
+      cursor: pointer;
+    }
+
+    .sticker-choice input {
+      width: 18px;
+      height: 18px;
+    }
+
+    .birthday-card {
+      position: relative;
+      min-height: 340px;
+      display: grid;
+      place-items: center;
+      padding: 60px 35px;
+      overflow: hidden;
+      border: 3px solid var(--pink);
+      border-radius: 17px;
+      background:
+        radial-gradient(#efb7ce 1px, transparent 1px),
+        #fff0f6;
+      background-size: 16px 16px;
+      text-align: center;
+    }
+
+    .card-title {
+      margin: 0;
+      color: var(--hot-pink);
+      font-family: "Caveat", cursive;
+      font-size: 3.2rem;
+      line-height: 1;
+    }
+
+    .sticker {
+      position: absolute;
+      display: none;
+      font-size: 2.5rem;
+    }
+
+    .sticker-bow {
+      top: 18px;
+      left: 20px;
+      transform: rotate(-15deg);
+    }
+
+    .sticker-flower {
+      right: 20px;
+      bottom: 18px;
+      transform: rotate(15deg);
+    }
+
+    .sticker-star {
+      top: 25px;
+      right: 20px;
+    }
+
+    .sticker-heart {
+      bottom: 18px;
+      left: 20px;
+      transform: rotate(-15deg);
+    }
+
+    .sticker-studio:has(#bow:checked) .sticker-bow,
+    .sticker-studio:has(#flower:checked) .sticker-flower,
+    .sticker-studio:has(#star:checked) .sticker-star,
+    .sticker-studio:has(#heart:checked) .sticker-heart {
+      display: block;
+    }
+
+    .small-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Birthday envelopes */
+
+    .envelope-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+      align-items: start;
+    }
+
+    .envelope {
+      overflow: hidden;
+      border: 2px solid var(--border);
+      border-radius: 13px;
+      background: var(--pale-pink);
+      box-shadow: 3px 4px 0 #f1cada;
+    }
+
+    .envelope summary {
+      padding: 25px 15px;
+      cursor: pointer;
+      color: var(--hot-pink);
+      font-weight: 800;
+      text-align: center;
+      list-style: none;
+    }
+
+    .envelope summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .envelope summary::before {
+      display: block;
+      margin-bottom: 8px;
+      content: "✉";
+      font-size: 2.6rem;
+    }
+
+    .envelope[open] {
+      background: #ffe7f0;
+    }
+
+    .envelope p {
+      margin: 0;
+      padding: 0 20px 23px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 25px 0 40px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .studio-layout,
+      .sticker-layout,
+      .envelope-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        justify-content: center;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+
+    /* Print only a clean coloring sheet. */
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .topbar,
+      .hero,
+      .color-controls,
+      .sticker-studio,
+      .surprises,
+      footer,
+      .coloring-studio > .eyebrow,
+      .coloring-studio > h2,
+      .coloring-studio > .section-note {
+        display: none !important;
+      }
+
+      .container {
+        width: 100%;
+      }
+
+      .paper {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: white;
+        box-shadow: none;
+      }
+
+      .paper::before,
+      .paper::after {
+        display: none;
+      }
+
+      .studio-layout {
+        display: block;
+      }
+
+      .drawing-sheet {
+        border: 0;
+      }
+
+      .drawing-sheet svg {
+        max-width: 600px;
+      }
+
+      .frosting,
+      .wrapper,
+      .cake-heart {
+        fill: white !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="container topbar">
+    <a class="brand" href="#home">♡ Pink Paper Club</a>
+
+<nav class="nav-links" aria-label="Main navigation">
+  <a href="#color">Color</a>
+  <a href="#decorate">Decorate</a>
+  <a href="#surprises">Open gifts</a>
+  <a href="letter.html">Your birthday letter ♡</a>
+  <a href="playroom.html">Creative playground ✎</a>
+</nav>
+  </header>
+
+  <main class="container">
+
+    <!-- BIRTHDAY WELCOME -->
+
+    <section class="paper taped hero" id="home">
+      <span class="birthday-badge">Birthday edition · Chapter 23</span>
+
+      <p class="eyebrow">Made for the birthday girl</p>
+
+      <h1>A little pink<br>creative escape</h1>
+
+      <div class="doodles" aria-hidden="true">🎀 ✎ 🌷</div>
+
+      <p class="intro">
+        Happy 23rd birthday Ate Carmel! I created this mini-digital getaway for you to ease your mind and not have to think about responsibilities too much. Let this be your reminder that I also appreciate you so so much and that this is my way of showing that to you.
+      </p>
+
+      <a class="button" href="#color">Let's get started! →</a>
+    </section>
+
+    <!-- COLORING ACTIVITY -->
+
+    <form class="paper taped coloring-studio" id="color">
+      <p class="eyebrow">Activity 01 · Marker moment</p>
+
+      <h2>Color your birthday cupcake</h2>
+
+      <p class="section-note">
+        Color your cupcake! Maybe we should bake together? We could do the Deaf, mute, blind challenge!
+      </p>
+
+      <div class="studio-layout">
+
+        <div class="drawing-sheet">
+
+          <svg
+            viewBox="0 0 360 370"
+            role="img"
+            aria-labelledby="cupcake-title cupcake-desc"
+          >
+            <title id="cupcake-title">Birthday cupcake coloring illustration</title>
+
+            <desc id="cupcake-desc">
+              A cupcake with a heart topper, sprinkles, and a smiling wrapper.
+              Use the color controls to change its frosting, wrapper, and heart.
+            </desc>
+
+            <g
+              stroke="#63344c"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <!-- Little doodles around the cupcake -->
+              <path
+                d="M52 111 L52 133 M41 122 L63 122
+                   M302 161 L302 181 M292 171 L312 171"
+                fill="none"
+              />
+
+              <path
+                d="M53 250 L58 261 L70 263 L61 272
+                   L63 284 L53 278 L42 284 L44 272
+                   L35 263 L48 261 Z"
+                fill="#fffdf8"
+              />
+
+              <path
+                d="M298 81 L303 92 L315 94 L306 103
+                   L308 115 L298 109 L287 115 L289 103
+                   L280 94 L293 92 Z"
+                fill="#fffdf8"
+              />
+
+              <!-- Heart topper stick -->
+              <path d="M180 93 L180 136" fill="none" />
+
+              <!-- Colorable heart -->
+              <path
+                class="cake-heart"
+                d="M180 98
+                   C158 82 142 69 148 52
+                   C154 36 174 39 180 53
+                   C186 39 206 36 212 52
+                   C218 69 202 82 180 98 Z"
+              />
+
+              <!-- Colorable frosting -->
+              <path
+                class="frosting"
+                d="M83 222
+                   C65 207 73 184 94 178
+                   C88 156 107 137 131 140
+                   C133 117 160 108 180 126
+                   C200 108 227 117 229 140
+                   C253 137 272 156 266 178
+                   C287 184 295 207 277 222
+                   Z"
+              />
+
+              <!-- Sprinkles -->
+              <g stroke-width="5">
+                <path d="M111 184 L122 190" />
+                <path d="M150 151 L146 161" />
+                <path d="M184 183 L193 190" />
+                <path d="M229 165 L238 159" />
+                <path d="M245 199 L254 203" />
+              </g>
+
+              <!-- Colorable wrapper -->
+              <path
+                class="wrapper"
+                d="M88 223 L272 223 L247 326 L113 326 Z"
+              />
+
+              <!-- Wrapper folds -->
+              <g opacity="0.45">
+                <path d="M116 234 L130 313" />
+                <path d="M244 234 L230 313" />
+              </g>
+
+              <!-- Smiley face -->
+              <circle cx="156" cy="267" r="3" fill="#63344c" />
+              <circle cx="204" cy="267" r="3" fill="#63344c" />
+
+              <path
+                d="M168 282 Q180 295 192 282"
+                fill="none"
+              />
+
+              <!-- Ground doodle -->
+              <path d="M98 343 Q180 356 262 343" fill="none" />
+            </g>
+          </svg>
+
+          <p class="drawing-caption">a cupcake for the sweetest tooth of 2003 ♡</p>
+        </div>
+
+        <div class="color-controls">
+
+          <fieldset>
+            <legend>1. Frosting</legend>
+
+            <div class="color-options">
+              <label>
+                <input id="frosting-pink" type="radio" name="frosting">
+                Pink
+              </label>
+
+              <label>
+                <input id="frosting-lilac" type="radio" name="frosting">
+                Lilac
+              </label>
+
+              <label>
+                <input id="frosting-peach" type="radio" name="frosting">
+                Peach
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>2. Cupcake wrapper</legend>
+
+            <div class="color-options">
+              <label>
+                <input id="wrapper-rose" type="radio" name="wrapper">
+                Rose
+              </label>
+
+              <label>
+                <input id="wrapper-yellow" type="radio" name="wrapper">
+                Butter
+              </label>
+
+              <label>
+                <input id="wrapper-mint" type="radio" name="wrapper">
+                Mint
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>3. Heart topper</legend>
+
+            <div class="color-options">
+              <label>
+                <input id="heart-cherry" type="radio" name="topper">
+                Cherry
+              </label>
+
+              <label>
+                <input id="heart-lilac" type="radio" name="topper">
+                Lilac
+              </label>
+
+              <label>
+                <input id="heart-pink" type="radio" name="topper">
+                Baby pink
+              </label>
+            </div>
+          </fieldset>
+
+          <button class="reset-button" type="reset">
+            Start with a fresh page ↺
+          </button>
+
+          <p class="small-note">
+            I know your real coloring books and markers have more room for creativity, but it's not every time you want to set everything up and stow it all away afterwards right?
+          </p>
+
+        </div>
+      </div>
+    </form>
+
+    <!-- STICKER ACTIVITY -->
+
+    <section class="paper taped sticker-studio" id="decorate">
+      <p class="eyebrow">Activity 02 · Sticker therapy</p>
+
+      <h2>Decorate your birthday card!</h2>
+
+      <p class="section-note">
+        I know you've also been eyeing those sticker therapy things, so I made a simpler version of it here.
+      </p>
+
+      <div class="sticker-layout">
+
+        <div class="sticker-controls">
+          <label class="sticker-choice">
+            <input type="checkbox" id="bow">
+            🎀 Add a ribbon bow
+          </label>
+
+          <label class="sticker-choice">
+            <input type="checkbox" id="flower">
+            🌸 Add a little flower
+          </label>
+
+          <label class="sticker-choice">
+            <input type="checkbox" id="star">
+            ✨ Add some sparkle
+          </label>
+
+          <label class="sticker-choice">
+            <input type="checkbox" id="heart">
+            💗 Add a pink heart
+          </label>
+        </div>
+
+        <div class="birthday-card">
+          <span class="sticker sticker-bow" aria-hidden="true">🎀</span>
+          <span class="sticker sticker-flower" aria-hidden="true">🌸</span>
+          <span class="sticker sticker-star" aria-hidden="true">✨</span>
+          <span class="sticker sticker-heart" aria-hidden="true">💗</span>
+
+          <div>
+            <p class="eyebrow">Handmade-ish, with love</p>
+
+            <p class="card-title">
+              You're truly an<br>
+              inspiration to me!
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="small-note">
+        Thank you for always being there whenever I needed you :D
+      </p>
+    </section>
+
+    <!-- BIRTHDAY LETTERS -->
+
+    <section class="paper taped surprises" id="surprises">
+      <p class="eyebrow">Activity 03 · Happy mail</p>
+
+      <h2>Three tiny birthday envelopes</h2>
+
+      <p class="section-note">
+        Take a peek O.O
+      </p>
+
+      <div class="envelope-grid">
+
+        <details class="envelope">
+          <summary>A wish for 23</summary>
+
+          <p>
+            I wish for you to stay happy, keep making decisions that benefit you, stay strong in your relationship, and to make more bank to afford everything you'd ever want and need. (AKA Travel to your hearts extent)
+          </p>
+        </details>
+
+        <details class="envelope">
+          <summary>Try something new</summary>
+
+          <p>
+            Since we've established your love for simple crafts, why not learn something new for a start of an era? This is just a suggestion, but I can see you repairing/DIY'ing old and used squishies to make them look new again.
+          </p>
+        </details>
+
+        <details class="envelope">
+          <summary>A note from me</summary>
+
+          <p>
+            Happiest Birthday Ate Eunice! I wanted to make you something that
+            I knew for sure you'd like: creative, cute, and very, very pink.
+            I hope that the rest of what you'll see will be enough to make your day.
+          </p>
+        </details>
+
+      </div>
+
+<div style="text-align: center; margin-top: 28px;">
+  <p class="handwriting" style="font-size: 2rem; margin-bottom: 10px;">
+    There's a few more things in your craft box…
+  </p>
+
+  <a class="button" href="letter.html">
+    Open your birthday letter ✉
+  </a>
+</div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    Made with love, imaginary glitter, and frankly too much pink but this is your page so what can I say hehe ♡
+  </footer>
+
+</body>
+</html>
